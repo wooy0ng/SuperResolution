@@ -22,7 +22,7 @@ class App extends Component {
       imgs: [],
       param: 50,
       results: [],
-      flag: false,
+      loading_flag: false,
     };
 
     // https://sirong.tistory.com/101 : 쿠키
@@ -50,6 +50,9 @@ class App extends Component {
     this.handleSubmit = (event) => {
       const send_data = Object.assign({}, this.state);
       if (send_data.imgs.length > 0) {
+        this.setState({
+          loading_flag: true,
+        });
         fetch("train", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -60,6 +63,7 @@ class App extends Component {
             console.log(res);
             this.setState({
               imgs: res.data,
+              loading_flag: false,
             });
 
             if (this.state.results.length > 0) {
@@ -74,6 +78,8 @@ class App extends Component {
             this.result = results[results.length - 1];
             this.setState({ results: results });
           });
+      } else {
+        alert("please load images!!!");
       }
     };
     this.handleRefClicked = () => {
@@ -226,15 +232,31 @@ class App extends Component {
                   >
                     Load image
                   </Button>
-                  <Button
-                    className="btn-size margin-left-20"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.handleSubmit();
-                    }}
-                  >
-                    training
-                  </Button>
+                  {!this.state.loading_flag ? (
+                    <Button
+                      className="btn-size margin-left-20"
+                      variant="outline-primary"
+                      onClick={() => {
+                        this.handleSubmit();
+                      }}
+                    >
+                      training
+                    </Button>
+                  ) : (
+                    <button
+                      class="btn-size margin-left-20 btn btn-primary"
+                      type="button"
+                      disabled
+                    >
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      &nbsp; Loading...
+                    </button>
+                  )}
+
                   <Button
                     className="btn-size margin-left-20"
                     variant="outline-primary"
