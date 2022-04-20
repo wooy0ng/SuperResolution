@@ -1,0 +1,6 @@
+version: 3
+  service:
+    flask-api:
+      build: ./api
+    web-aplication:
+      build: ./app

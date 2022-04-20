@@ -5,6 +5,8 @@ import "./App.css";
 import { Container, Navbar, Button } from "react-bootstrap";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
+import HiddenCropper from "react-bootstrap-image-cropper/dist/HiddenCropper";
+import ReactCrop from "react-image-crop";
 
 class App extends Component {
   constructor(props) {
@@ -77,6 +79,12 @@ class App extends Component {
             }
             this.result = results[results.length - 1];
             this.setState({ results: results });
+          })
+          .catch((event) => {
+            alert("Could not proxy request /train");
+            this.setState({
+              loading_flag: false,
+            });
           });
       } else {
         alert("please load images!!!");
@@ -87,6 +95,33 @@ class App extends Component {
       for (let idx = 0; idx < this.state.results.length; idx++) {
         this.downloadRefs[idx].current.click();
       }
+    };
+    // type : blob
+    this.handleCropped = (blob) => {
+      let idx = -1;
+      if (this.state.imgs.length > 0) {
+        idx = this.state.imgs[this.state.imgs.length - 1].id;
+      }
+
+      console.log("blob : ", blob);
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = (event) => {
+        console.log(event);
+        let base64data = reader.result;
+
+        this.setState({
+          imgs: [
+            ...this.state.imgs,
+            {
+              id: idx + 1,
+              name: `${idx + 1}.jpeg`,
+              data: base64data,
+              result: "",
+            },
+          ],
+        });
+      };
     };
   }
   makeDownLoadRefs() {
@@ -186,6 +221,18 @@ class App extends Component {
                     }}
                   />
                 </div>
+                {/* cropping test 1 */}
+                <HiddenCropper
+                  triggerRef={this.inputRef}
+                  onCropped={this.handleCropped}
+                  inputOptions={{ mimeType: "image/jpeg" }}
+                  cropOptions={{ aspect: 4 / 4, maxZoom: 10 }}
+                  outputOptions={{ maxWidth: 256, maxHeight: 256 }}
+                  previewOptions={{ width: 256, height: 256 }}
+                  displayOptions={{ title: "Cropping" }}
+                />
+                {/* cropping test 2 */}
+                {/* 
                 <input
                   type="file"
                   ref={this.inputRef}
@@ -194,6 +241,7 @@ class App extends Component {
                     if (event.currentTarget.files.length > 0) {
                       const file = event.currentTarget.files[0];
 
+                      // file read
                       const reader = new FileReader();
                       reader.readAsDataURL(file);
                       reader.onloadend = (event) => {
@@ -201,6 +249,7 @@ class App extends Component {
                         if (this.state.imgs.length > 0) {
                           idx = this.state.imgs[this.state.imgs.length - 1].id;
                         }
+
                         this.setState({
                           imgs: [
                             ...this.state.imgs,
@@ -217,14 +266,17 @@ class App extends Component {
                     event.target.value = "";
                   }}
                   hidden
-                />
+                /> */}
+
+                {/* button area */}
                 <div className="container-flex margin-top-20">
                   <Button
                     className="btn-size"
                     variant="outline-secondary"
                     onClick={() => {
                       if (this.state.imgs.length < 5) {
-                        this.inputRef.current.click();
+                        // this.inputRef.current.click();
+                        this.inputRef.current.trigger();
                       } else {
                         alert("error");
                       }
