@@ -79,12 +79,6 @@ class App extends Component {
             }
             this.result = results[results.length - 1];
             this.setState({ results: results });
-          })
-          .catch((event) => {
-            alert("Could not proxy request /train");
-            this.setState({
-              loading_flag: false,
-            });
           });
       } else {
         alert("please load images!!!");
@@ -274,7 +268,7 @@ class App extends Component {
                     className="btn-size"
                     variant="outline-secondary"
                     onClick={() => {
-                      if (this.state.imgs.length < 5) {
+                      if (this.state.imgs.length < 1) {
                         // this.inputRef.current.click();
                         this.inputRef.current.trigger();
                       } else {
