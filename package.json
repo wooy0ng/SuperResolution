@@ -2,7 +2,7 @@
   "name": "sample",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:3001",
+  "proxy": "http://15.164.230.247:3001/",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start",    
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

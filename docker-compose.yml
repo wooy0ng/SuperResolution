@@ -1,6 +1,22 @@
-version: 3
-  service:
-    flask-api:
-      build: ./api
-    web-aplication:
-      build: ./app
+version: "3.7"
+
+services:
+    flask:
+        build: ./flask
+        container_name: flask
+        restart: always
+        environment:
+            - APP_NAME=FlaskTest
+        ports:
+          - "3001:3001"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+    nginx:
+        build: ./
+        container_name: nginx
+        restart: always
+        ports:
+            - "80:3000"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
