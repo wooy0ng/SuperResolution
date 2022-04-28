@@ -3,10 +3,9 @@ import json
 import pandas as pd
 import utils
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torchvision
+from handler import inference
+
+model_handler = inference.ESRGANHandler('handler/model/RealESRGAN_x4plus.pth')
 
 app = Flask(__name__)
 
@@ -29,6 +28,7 @@ def train():
     
     #### result
     # imgs == super resolution image
+    imgs = [(model_handler.handle(img), _type) for img, _type in imgs]
 
     
     df.result = [utils.img_to_base64(img, _type) for img, _type in imgs]
@@ -44,4 +44,4 @@ def test():
     return {"response": "test"}
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3001)
+    app.run(host = "0.0.0.0", debug=True, port=3001)

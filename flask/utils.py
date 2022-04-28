@@ -3,7 +3,6 @@ import base64
 from PIL import Image
 import numpy as np
 from io import BytesIO
-from PIL import Image
 
 def resize_img(img):
     resized_img = img.resize((400, 400))
@@ -19,7 +18,7 @@ def base64_to_img(text):
     return arr, _type
 
 def img_to_base64(arr, _type):
-    img = Image.fromarray(np.transpose(arr, (1, 2, 0)).astype('uint8'))
+    img = Image.fromarray(arr)
     img = resize_img(img)
 
     rawBytes = BytesIO()
