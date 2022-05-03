@@ -285,9 +285,12 @@ class App extends Component {
                     variant="outline-secondary"
                     disabled={this.state.imgs.length === 0}
                     onClick={() => {
+                      this.result = "";
                       this.setState({
                         imgs: [],
+                        results: [],
                       });
+                      console.log(this.state);
                     }}
                   >
                     Clear
