@@ -5,6 +5,8 @@ import "./App.css";
 import { Container, Navbar, Button } from "react-bootstrap";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
+import HiddenCropper from "react-bootstrap-image-cropper/dist/HiddenCropper";
+import ReactCrop from "react-image-crop";
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +24,7 @@ class App extends Component {
       imgs: [],
       param: 50,
       results: [],
-      flag: false,
+      loading_flag: false,
     };
 
     // https://sirong.tistory.com/101 : 쿠키
@@ -50,6 +52,9 @@ class App extends Component {
     this.handleSubmit = (event) => {
       const send_data = Object.assign({}, this.state);
       if (send_data.imgs.length > 0) {
+        this.setState({
+          loading_flag: true,
+        });
         fetch("train", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -60,6 +65,7 @@ class App extends Component {
             console.log(res);
             this.setState({
               imgs: res.data,
+              loading_flag: false,
             });
 
             if (this.state.results.length > 0) {
@@ -74,6 +80,8 @@ class App extends Component {
             this.result = results[results.length - 1];
             this.setState({ results: results });
           });
+      } else {
+        alert("please load images!!!");
       }
     };
     this.handleRefClicked = () => {
@@ -81,6 +89,33 @@ class App extends Component {
       for (let idx = 0; idx < this.state.results.length; idx++) {
         this.downloadRefs[idx].current.click();
       }
+    };
+    // type : blob
+    this.handleCropped = (blob) => {
+      let idx = -1;
+      if (this.state.imgs.length > 0) {
+        idx = this.state.imgs[this.state.imgs.length - 1].id;
+      }
+
+      console.log("blob : ", blob);
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = (event) => {
+        console.log(event);
+        let base64data = reader.result;
+
+        this.setState({
+          imgs: [
+            ...this.state.imgs,
+            {
+              id: idx + 1,
+              name: `${idx + 1}.jpeg`,
+              data: base64data,
+              result: "",
+            },
+          ],
+        });
+      };
     };
   }
   makeDownLoadRefs() {
@@ -180,6 +215,18 @@ class App extends Component {
                     }}
                   />
                 </div>
+                {/* cropping test 1 */}
+                <HiddenCropper
+                  triggerRef={this.inputRef}
+                  onCropped={this.handleCropped}
+                  inputOptions={{ mimeType: "image/jpeg" }}
+                  cropOptions={{ aspect: 4 / 4, maxZoom: 10 }}
+                  outputOptions={{ maxWidth: 256, maxHeight: 256 }}
+                  previewOptions={{ width: 256, height: 256 }}
+                  displayOptions={{ title: "Cropping" }}
+                />
+                {/* cropping test 2 */}
+                {/* 
                 <input
                   type="file"
                   ref={this.inputRef}
@@ -188,6 +235,7 @@ class App extends Component {
                     if (event.currentTarget.files.length > 0) {
                       const file = event.currentTarget.files[0];
 
+                      // file read
                       const reader = new FileReader();
                       reader.readAsDataURL(file);
                       reader.onloadend = (event) => {
@@ -195,6 +243,7 @@ class App extends Component {
                         if (this.state.imgs.length > 0) {
                           idx = this.state.imgs[this.state.imgs.length - 1].id;
                         }
+
                         this.setState({
                           imgs: [
                             ...this.state.imgs,
@@ -211,14 +260,17 @@ class App extends Component {
                     event.target.value = "";
                   }}
                   hidden
-                />
+                /> */}
+
+                {/* button area */}
                 <div className="container-flex margin-top-20">
                   <Button
                     className="btn-size"
                     variant="outline-secondary"
                     onClick={() => {
-                      if (this.state.imgs.length < 5) {
-                        this.inputRef.current.click();
+                      if (this.state.imgs.length < 1) {
+                        // this.inputRef.current.click();
+                        this.inputRef.current.trigger();
                       } else {
                         alert("error");
                       }
@@ -226,15 +278,31 @@ class App extends Component {
                   >
                     Load image
                   </Button>
-                  <Button
-                    className="btn-size margin-left-20"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.handleSubmit();
-                    }}
-                  >
-                    training
-                  </Button>
+                  {!this.state.loading_flag ? (
+                    <Button
+                      className="btn-size margin-left-20"
+                      variant="outline-primary"
+                      onClick={() => {
+                        this.handleSubmit();
+                      }}
+                    >
+                      training
+                    </Button>
+                  ) : (
+                    <button
+                      class="btn-size margin-left-20 btn btn-primary"
+                      type="button"
+                      disabled
+                    >
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      &nbsp; Loading...
+                    </button>
+                  )}
+
                   <Button
                     className="btn-size margin-left-20"
                     variant="outline-primary"
