@@ -7,6 +7,7 @@ COPY package*.json ./
 
 RUN npm ci -qy
 
+
 EXPOSE 80
 
 RUN apt-get -y -qq update \

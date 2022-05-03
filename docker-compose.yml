@@ -1,19 +1,25 @@
 version: "3.7"
 
 services:
+    
     flask:
         build: ./flask
         container_name: flask
+        deploy:
+          resources:
+            reservations:
+              devices:
+                - capabilities: [gpu]
         restart: always
         environment:
             - APP_NAME=FlaskTest
+            - NVIDIA_VISIBLE_DEVICES=0
         ports:
             - "3001:3001"
         volumes:
             - "./flask:/app" 
         extra_hosts:
             - "host.docker.internal:host-gateway"
-
     nginx:
         build: ./
         container_name: nginx

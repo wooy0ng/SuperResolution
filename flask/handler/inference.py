@@ -40,7 +40,8 @@ class ESRGANHandler:
         return img, img_mode, max_range, alpha
     
     def inference(self, img):
-        output = self.model(img)
+        with torch.no_grad():
+            output = self.model(img)
         return output
     
     def post_process(self, output, img_mode, max_range, alpha=None):

@@ -1,4 +1,5 @@
 FROM python:3.8-slim
+#FROM nvidia/cuda:10.2-base
 
 WORKDIR /app
 
@@ -10,6 +11,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV CUDA_VISIBLE_DEVICES=1
 
 COPY requirements.txt /app 
 RUN pip install -r requirements.txt

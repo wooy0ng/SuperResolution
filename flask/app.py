@@ -2,8 +2,18 @@ from flask import Flask, request
 import json
 import pandas as pd
 import utils
+import torch
+import sys
+import os
 
 from handler import inference
+
+import os
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+
+
 
 model_handler = inference.ESRGANHandler('handler/model/RealESRGAN_x4plus.pth')
 
@@ -17,6 +27,8 @@ def index():
 
 @app.route("/train", methods=['POST'])
 def train():
+    print('Training..', file=sys.stderr)
+    print(torch.cuda.is_available(), file=sys.stderr)
     receive = request.get_json()
 
     # model 
@@ -32,7 +44,6 @@ def train():
 
     
     df.result = [utils.img_to_base64(img, _type) for img, _type in imgs]
-    
     
     _json = df.to_json(orient="table", index=False)
     # response test
