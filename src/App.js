@@ -133,7 +133,7 @@ class App extends Component {
           <div className="nav-bar">
             <Navbar expand="sm" variant="light" bg="light">
               <Container>
-                <Navbar.Brand href="#">Sample</Navbar.Brand>
+                <Navbar.Brand href="#">Super Resolution Tool</Navbar.Brand>
               </Container>
             </Navbar>
           </div>
@@ -141,7 +141,7 @@ class App extends Component {
 
         <div className="body">
           <div className="container-flex main-margin padding-top-60">
-            <div className="img-container">
+            <div className="img-container margin-left-80">
               {this.state.results.length !== 0 &&
                 this.state.results.map((result, idx) => (
                   <a
@@ -191,7 +191,9 @@ class App extends Component {
               </div>
             </div>
             <div className="text-container padding-top-30 padding-left-70">
-              <p className="font-title">Super Resolution Tool</p>
+              <div className="">
+                <p className="font-title">Super Resolution Tool</p>
+              </div>
               <p>
                 the super Resolution Tool uses Deep Learning to clarify,
                 sharpen, and upscale
@@ -202,10 +204,10 @@ class App extends Component {
                 Super Resolution uses Deep Learning techniques to upscale images
                 in a fraction of a second.
               </p>
-              <div className="container-flex flex-direction-col">
+              <div className="container-flex flex-direction-col margin-top-50">
                 <div className="padding-top-30">
                   {/* param */}
-                  <div className="container-flex">
+                  {/* <div className="container-flex">
                     <Form.Label> α : ({this.state.param})</Form.Label>
                   </div>
                   <Form.Range
@@ -213,7 +215,7 @@ class App extends Component {
                     onChange={(event) => {
                       this.setState({ param: event.target.value });
                     }}
-                  />
+                  /> */}
                 </div>
                 {/* cropping test 1 */}
                 <HiddenCropper
@@ -263,7 +265,7 @@ class App extends Component {
                 /> */}
 
                 {/* button area */}
-                <div className="container-flex margin-top-20">
+                <div className="container-flex">
                   <Button
                     className="btn-size"
                     variant="outline-secondary"
@@ -272,21 +274,34 @@ class App extends Component {
                         // this.inputRef.current.click();
                         this.inputRef.current.trigger();
                       } else {
-                        alert("error");
+                        alert("이전 사진을 제거하고 넣어주세요.");
                       }
                     }}
                   >
                     Load image
                   </Button>
+                  <Button
+                    className="btn-size margin-left-20"
+                    variant="outline-secondary"
+                    disabled={this.state.imgs.length === 0}
+                    onClick={() => {
+                      this.setState({
+                        imgs: [],
+                      });
+                    }}
+                  >
+                    Clear
+                  </Button>
                   {!this.state.loading_flag ? (
                     <Button
                       className="btn-size margin-left-20"
+                      disabled={this.state.imgs.length === 0}
                       variant="outline-primary"
                       onClick={() => {
                         this.handleSubmit();
                       }}
                     >
-                      training
+                      Get SR image
                     </Button>
                   ) : (
                     <button
