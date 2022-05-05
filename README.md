@@ -26,8 +26,8 @@ Docker 이미지 생성, 컨테이너 생성 + 빌드 + 실행
 
 
 ## Example
-![Crop](.Images/Crop.png)
-![Make](.Images/Make.png)
+![Crop](./Images/Crop.png)
+![Make](./Images/Make.png)
 
 ## Result
 ![Compare](./Images/compare.png)
