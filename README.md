@@ -6,19 +6,19 @@
 
 
 ## requirements
-OS : AWS Linux 2
-Docker : v20.10.7
-Docker-compose : v2.4.1
-Nvidia Driver : 470.103.01   
+OS : AWS Linux 2  
+Docker : v20.10.7  
+Docker-compose : v2.4.1  
+Nvidia Driver : 470.103.01    
 CUDA : v11.4
 
 
 
 ## Build & Run
-`npm run build`
+`npm run build`  
 패키지 파일 생성
 
-`docker-compose --build --d`
+`docker-compose --build --d`  
 docker container 이미지 생성, 컨테이너 생성 + 빌드 + 실행
 (Image)
 
