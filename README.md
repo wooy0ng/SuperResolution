@@ -52,7 +52,7 @@ Docker 이미지 생성, 컨테이너 생성 + 빌드 + 실행
 
 
 
-## Example 🚩
+## Example 💱
 Main Page
 ![Example](./Images/example.png)
 
@@ -68,7 +68,7 @@ Get SR_Images
 ![Compare](./Images/compare.png)
 
 
-## Reference
+## Reference 😃
 Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data: https://arxiv.org/pdf/2107.10833.pdf
 
 
