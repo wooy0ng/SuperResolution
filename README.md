@@ -12,9 +12,9 @@
 OS : AWS Linux 2  
 Docker : v20.10.7  
 Docker-compose : v2.4.1  
-Nvidia Driver : 470.103.01    
-CUDA : v11.4
-
+Nvidia Driver : 470.103.01      
+CUDA : v11.4  
+npm : 8.5.5  
 
 
 ## Build & Run
