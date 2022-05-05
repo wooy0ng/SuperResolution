@@ -39,7 +39,7 @@ package.json파일의 proxy주소를 docker-compose로 만든 컨테이너의 ne
 패키지 파일 생성
 
 
-`docker-compose --build --d`  
+`docker-compose --build -d`  
 Docker 이미지 생성, 컨테이너 생성 + 빌드 + 실행  
 
 
