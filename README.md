@@ -27,5 +27,5 @@ Docker 이미지 생성, 컨테이너 생성 + 빌드 + 실행
 
 
 ## Result
-![Compare]./Images/Compare.png
+![Compare](./Images/Compare.png)
 
