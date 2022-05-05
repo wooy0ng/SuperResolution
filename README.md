@@ -2,10 +2,10 @@
 
 
 ## Introduction
+프로젝트 설명 + 어떤 기능을 수행하는지 등 적으면 될것같아요
 
 
-
-## requirements
+## Requirements
 OS : AWS Linux 2  
 Docker : v20.10.7  
 Docker-compose : v2.4.1  
