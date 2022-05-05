@@ -17,7 +17,9 @@ CUDA : v11.4
 ## Build & Run
 package.json파일의 proxy주소를 docker-compose로 만든 컨테이너의 network 의 gateway로 변경  
 - 주소 찾는 법 및 proxy 주소 설정  
-`docker network ls` 네트워크 ID 확인 (super resolution)  
+`docker network ls` 컨테이너가 연결된 네트워크 ID 확인 (super resolution)  
+
+
 `docker network inspect [Network ID]` 네트위크의 주소 확인  
 ```
 "IPAM": {  
