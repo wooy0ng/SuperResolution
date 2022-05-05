@@ -2,8 +2,11 @@
 
 
 ## Introduction
-프로젝트 설명 + 어떤 기능을 수행하는지 등 적으면 될것같아요
-
+- 과거에 명작 영화들이 초고화질(super-resolution)로 리마스터링 되어 재개봉되고 있음
+- 과거에 찍은 사진들은 촬영 관련 hardware 기술 부재로 저화질인 반면, 현재는 hardware 기술이 상당히 좋아져 사진의 품질이 대폭 상향 평준화
+- 이에 따라 개개인이 가지고 있는, 다시 찍을 수 없는 저화질의 사진들에 대해 고화질로 만들고 싶은 needs가 있을 거라 판단
+- 추억이 담긴 사진들이 대부분 인물에 국한되어 있는데, 인물 뿐만 아니라 
+동물, 사물, 건물, 배경 모든 분야에 사진에 대해서도 고화질로 만들 수 있는 플랫폼 제공
 
 ## Requirements
 OS : AWS Linux 2  
@@ -57,4 +60,9 @@ Docker 이미지 생성, 컨테이너 생성 + 빌드 + 실행
 
 ## Result
 ![Compare](./Images/compare.png)
+
+
+## Reference
+Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data: https://arxiv.org/pdf/2107.10833.pdf
+
 
