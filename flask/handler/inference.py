@@ -5,6 +5,10 @@ import cv2
 from handler.arch import net_G
 
 class ESRGANHandler:
+    """Handler for post inference to flask api
+    
+    Args: model_path (string): file path where model file(.pth) is in
+    """
     def __init__(self, model_path):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.model = net_G.RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=4).to(self.device)
@@ -13,6 +17,17 @@ class ESRGANHandler:
         self.model.eval()
     
     def preprocessing(self, img):
+        """preprocess image for various image format
+
+        Args:
+            img (image): image to process
+
+        Returns:
+            tuple: img - processed image
+                   img_mode - image format
+                   max_range - max value of pixels
+                   alpha - alpha channel of image (Default=None)
+        """
         alpha = None
 
         if np.max(img) > 256:
@@ -40,11 +55,30 @@ class ESRGANHandler:
         return img, img_mode, max_range, alpha
     
     def inference(self, img):
+        """feed image to model
+
+        Args:
+            img (tensor): processed image tensor 
+
+        Returns:
+            tensor: output of model
+        """
         with torch.no_grad():
             output = self.model(img)
         return output
     
     def post_process(self, output, img_mode, max_range, alpha=None):
+        """process output image to show image properly
+
+        Args:
+            output (tensor): output of inference function
+            img_mode (string): image format (RGB, RGBA, Grey-scale...)
+            max_range (integer): max value of pixels
+            alpha (array, optional): alpha chennel of image. Defaults to None.
+
+        Returns:
+            array: numpy array to be converted for show image at browser
+        """
         output = output.detach().squeeze().float().cpu().clamp_(0, 1).numpy()
         output = np.transpose(output, (1, 2, 0))
 

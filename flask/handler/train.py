@@ -293,9 +293,6 @@ class Trainer:
         loss_d_fake.backward()
         self.optimizers_d.step()
         
-        # ema_decay
-        
-        # log_dict
     
     def fit(self):
         train_loader, val_loader, total_epochs, total_iters = d.create_train_val_dataloader(self.opt)
@@ -310,11 +307,6 @@ class Trainer:
                 self.feed_data(data)
                 self._train_step(current_iter)
             print(epoch)
-                
-                # log
-                
-                # validation
-                
     
     def evaluate(self):
         pass
