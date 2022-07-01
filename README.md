@@ -2,7 +2,6 @@
 
 # 프로그래머스 데브코스 final project : 수리 (Su Re) ✨
   
-- 논문 정리 : https://blog.naver.com/yygg9800/222649362282
 
 ## Introduction 🎬
 
@@ -107,4 +106,7 @@ Get SR_Images
 
 ## Reference 😃
 Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data: https://arxiv.org/pdf/2107.10833.pdf
+  
+- 논문 정리 : https://blog.naver.com/yygg9800/222649362282
+
 
