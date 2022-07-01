@@ -1,6 +1,8 @@
 ![logo](https://github.com/kimseokwu/super-resolution/blob/main/Images/logo.png?raw=true)
 
 # 프로그래머스 데브코스 final project : 수리 (Su Re) ✨
+  
+- 논문 정리 : https://blog.naver.com/yygg9800/222649362282
 
 ## Introduction 🎬
 
